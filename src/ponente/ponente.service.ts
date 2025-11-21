@@ -15,10 +15,10 @@ import {
 export class PonenteService {
   constructor(
     @InjectRepository(Ponente)
-    private readonly ponenteRepository: Repository<Ponente>,
+    private readonly keyRepository: Repository<Ponente>,
 
     @InjectRepository(Evento)
-    private readonly eventoRepo: Repository<Evento>,
+    private readonly eventoRepository: Repository<Evento>,
   ) {}
 
   async create(data: CreatePonenteDto): Promise<Ponente> {
@@ -40,8 +40,8 @@ export class PonenteService {
       }
     }
 
-    const ponente = this.ponenteRepository.create(data);
-    return this.ponenteRepository.save(ponente);
+    const ponente = this.keyRepository.create(data);
+    return this.keyRepository.save(ponente);
   }
 
   findAll() {
@@ -49,7 +49,7 @@ export class PonenteService {
   }
 
   async findOne(id: number): Promise<Ponente> {
-    const ponente = await this.ponenteRepository.findOne({ where: { id } });
+    const ponente = await this.keyRepository.findOne({ where: { id } });
 
     if (!ponente) {
       throw new BadRequestException(`Ponente con ID ${id} no encontrado`);
@@ -65,7 +65,7 @@ export class PonenteService {
   async remove(id: number): Promise<void> {
     const ponente = await this.findOne(id);
 
-    const eventos = await this.eventoRepo.find({
+    const eventos = await this.eventoRepository.find({
       where: { ponente: { id: ponente.id } },
     });
 
@@ -74,7 +74,7 @@ export class PonenteService {
         'No se puede eliminar un ponente que tiene eventos asociados.',
       );
     }
-    await this.ponenteRepository.delete(id);
+    await this.keyRepository.delete(id);
   }
 
   private handleDBExceptions(error: any) {

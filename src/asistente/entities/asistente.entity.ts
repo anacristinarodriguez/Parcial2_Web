@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { ManyToOne } from 'typeorm/browser';
+import { ManyToOne } from 'typeorm';
 import { Evento } from '../../evento/entities/evento.entity';
 
 @Entity()
