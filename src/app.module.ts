@@ -3,6 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PonenteModule } from './ponente/ponente.module';
+import { EventoModule } from './evento/evento.module';
+import { AsistenteModule } from './asistente/asistente.module';
+import { AuditorioModule } from './auditorio/auditorio.module';
 
 @Module({
   imports: [
@@ -17,6 +21,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true,
       synchronize: true, // SOLO EN DESARROLLO
     }),
+    PonenteModule,
+    EventoModule,
+    AsistenteModule,
+    AuditorioModule,
   ],
   controllers: [AppController],
   providers: [AppService],
